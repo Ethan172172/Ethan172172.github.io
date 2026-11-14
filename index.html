@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>劉秉澄 Bing-Cheng Liu | 個人履歷網站</title>
+    <style>
+        :root {
+            --bg-canvas: #eef1ee;
+            --bg-card: #ffffff;
+            --sage-border: #c5d5c8;
+            --sage-soft: #e6efe8;
+            --green-main: #4a6b53;
+            --green-dark: #2f4836;
+            --text-dark: #253028;
+            --text-gray: #637267;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            /* [特效] 點擊導覽列錨點時平滑捲動 — 使用 scroll-behavior: smooth */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-dark);
+            line-height: 1.65;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #ffffff;
+            border-bottom: 1px solid var(--sage-border);
+            padding: 10px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-badge {
+            background: var(--green-main);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .nav-title {
+            font-weight: 700;
+            color: var(--green-dark);
+            font-size: 0.95rem;
+        }
+
+        .nav-pill {
+            background: var(--sage-soft);
+            color: var(--green-main);
+            font-size: 0.72rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            padding: 4px 8px;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        /* [特效] 滑鼠移到導覽列連結時變色與背景高亮 — 使用 transition + hover */
+        .nav-links a:hover {
+            background: var(--sage-soft);
+            color: var(--green-dark);
+        }
+
+        .page-wrapper {
+            max-width: 960px;
+            margin: 18px auto;
+            padding: 0 16px;
+        }
+
+        .wire-card {
+            background: var(--bg-card);
+            border: 1.5px solid var(--sage-border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 18px;
+        }
+
+        .wire-hint {
+            font-size: 0.75rem;
+            color: var(--green-main);
+            background: var(--sage-soft);
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 999px;
+            margin-bottom: 14px;
+        }
+
+        .header-main {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .avatar-col {
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .avatar-ring {
+            width: 132px;
+            height: 132px;
+            border-radius: 50%;
+            padding: 6px;
+            background: #d8c8e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+
+        .avatar-ring img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        /* [特效] 滑鼠移到個人頭像時微幅放大 — 使用 transition + transform: scale */
+        .avatar-ring img:hover {
+            transform: scale(1.06);
+        }
+
+        .avatar-label {
+            font-size: 0.78rem;
+            color: var(--text-gray);
+        }
+
+        .mini-badge {
+            font-size: 0.78rem;
+            color: var(--green-main);
+            background: var(--sage-soft);
+            padding: 2px 10px;
+            border-radius: 999px;
+        }
+
+        .header-info h1 {
+            font-size: 1.85rem;
+            color: var(--green-dark);
+            margin: 6px 0 4px;
+        }
+
+        .dept-line {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+        }
+
+        .slogan-line {
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            background: #f7faf8;
+            border-left: 3px solid var(--green-main);
+            padding: 6px 12px;
+            margin-bottom: 12px;
+        }
+
+        .contact-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .chip-btn {
+            text-decoration: none;
+            font-size: 0.82rem;
+            color: var(--text-dark);
+            background: #f7faf8;
+            border: 1px solid var(--sage-border);
+            padding: 4px 12px;
+            border-radius: 6px;
+        }
+
+        .sec-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .sec-top h2 {
+            font-size: 1.15rem;
+            color: var(--green-dark);
+        }
+
+        .sec-code {
+            font-size: 0.78rem;
+            color: var(--text-gray);
+        }
+
+        .inner-box {
+            border: 1px solid var(--sage-border);
+            border-radius: 10px;
+            padding: 16px;
+            background: #fcfdfb;
+        }
+
+        .box-head {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 12px;
+        }
+
+        .sub-code {
+            font-size: 0.74rem;
+            color: var(--green-main);
+        }
+
+        .sec1-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .tag-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .pill-btn {
+            border: 1px solid var(--sage-border);
+            background: #fff;
+            color: var(--text-gray);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pill-btn.active, .pill-btn:hover {
+            background: var(--green-main);
+            color: #fff;
+            border-color: var(--green-main);
+        }
+
+        .bio-box {
+            background: #f4f7f5;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.88rem;
+        }
+
+        .photo-screen {
+            position: relative;
+            height: 185px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #232c26;
+        }
+
+        .photo-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(20, 30, 23, 0.45);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .overlay-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .overlay-sub {
+            font-size: 0.75rem;
+            opacity: 0.85;
+        }
+
+        .arrow-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .arrow-btn.left { left: 8px; }
+        .arrow-btn.right { right: 8px; }
+
+        .sec2-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .bar-group {
+            margin-bottom: 12px;
+        }
+
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.84rem;
+            margin-bottom: 4px;
+        }
+
+        .bar-track {
+            width: 100%;
+            height: 9px;
+            background: #dce5de;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        /* [特效] 技能進度條載入動畫 — 使用 @keyframes 漸進展開 */
+        .bar-fill {
+            height: 100%;
+            background: var(--green-main);
+            border-radius: 999px;
+            animation: barGrow 1.1s ease-out forwards;
+        }
+
+        @keyframes barGrow {
+            from { width: 0; }
+        }
+
+        .soft-flex {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .ring-box {
+            text-align: center;
+        }
+
+        .css-ring {
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            background: conic-gradient(var(--green-main) var(--val), #dce5de 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            transition: transform 0.25s ease;
+        }
+
+        /* [特效] 滑鼠移到技能圓環時放大 — 使用 transition + transform: scale */
+        .css-ring:hover {
+            transform: scale(1.08);
+        }
+
+        .css-ring span {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #fcfdfb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--green-dark);
+        }
+
+        .ring-box p {
+            font-size: 0.78rem;
+            color: var(--text-gray);
+        }
+
+        .soft-pill-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .soft-chip {
+            background: #fff;
+            border: 1px solid var(--sage-border);
+            border-radius: 999px;
+            padding: 5px 10px;
+            font-size: 0.78rem;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .acc-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .acc-item {
+            border: 1px solid var(--sage-border);
+            border-radius: 8px;
+            background: #fcfdfb;
+            padding: 10px 14px;
+            transition: transform 0.2s ease;
+        }
+
+        /* [特效] 滑鼠懸停在經歷卡片時微微上浮 — 使用 transition + translateY */
+        .acc-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .acc-summary {
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .stage-tag {
+            background: var(--sage-soft);
+            color: var(--green-main);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .acc-body {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--sage-border);
+            font-size: 0.88rem;
+        }
+
+        .proof-row {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            font-size: 0.82rem;
+        }
+
+        .proof-row a {
+            color: var(--green-main);
+            text-decoration: none;
+            border: 1px solid var(--sage-border);
+            padding: 2px 8px;
+            border-radius: 5px;
+            background: #fff;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .social-pill {
+            text-decoration: none;
+            font-size: 0.84rem;
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--sage-border);
+            background: #f7faf8;
+            color: var(--green-dark);
+            font-weight: 600;
+        }
+
+        .social-pill.primary {
+            background: var(--green-main);
+            color: #fff;
+            border-color: var(--green-main);
+        }
+
+        .feedback-form {
+            border: 1px solid var(--sage-border);
+            border-radius: 10px;
+            padding: 16px;
+            background: #fcfdfb;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .field-group {
+            margin-bottom: 10px;
+        }
+
+        .field-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .field-group input,
+        .field-group select,
+        .field-group textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--sage-border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.86rem;
+        }
+
+        .send-btn {
+            width: 100%;
+            background: var(--green-main);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .send-btn:hover {
+            background: var(--green-dark);
+        }
+
+        .footer-bar {
+            text-align: center;
+            padding: 18px;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+        }
+
+        @media (max-width: 720px) {
+            .header-main, .sec1-grid, .sec2-grid, .form-grid-2 {
+                flex-direction: column;
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <span class="nav-badge">劉</span>
+            <span class="nav-title">Bing-Cheng Liu</span>
+            <span class="nav-pill">CYCU IM</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#header-sec">首頁 (Header)</a></li>
+            <li><a href="#sec-one">關於我 (Section 1)</a></li>
+            <li><a href="#sec-two">技能專長 (Section 2)</a></li>
+            <li><a href="#sec-three">大學經歷 (Section 3)</a></li>
+            <li><a href="#sec-four">互動留言 (Section 4)</a></li>
+        </ul>
+    </nav>
+
+    <header id="header-sec" class="page-wrapper">
+        <div class="wire-card header-card">
+            <div class="wire-hint">&lt;header&gt; • 名字、照片、基本資料</div>
+            <div class="header-main">
+                <div class="avatar-col">
+                    <div class="avatar-ring">
+                        <img src="image/avatar.jpg" alt="劉秉澄個人照片">
+                    </div>
+                    <span class="avatar-label">個人照片</span>
+                </div>
+                <div class="header-info">
+                    <span class="mini-badge">● 個人履歷網站 Profile</span>
+                    <h1>劉秉澄</h1>
+                    <p class="dept-line">中原大學資訊管理學系 • CYCU Information Management</p>
+                    <p class="slogan-line">
+                        #Slogan：熱衷於探索前端開發與系統設計，在程式碼與球場節奏之間，打造直覺且富有溫度的數位體驗。
+                    </p>
+                    <div class="contact-chips">
+                        <a href="tel:0910081177" class="chip-btn">📞 0910081177</a>
+                        <a href="mailto:s11444108@o365st.cycu.edu.tw" class="chip-btn">✉️ s11444108@o365st.cycu.edu.tw</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-wrapper">
+
+        <section id="sec-one" class="wire-card">
+            <div class="sec-top">
+                <h2>👤 個人簡介 / 關於我</h2>
+                <span class="sec-code">Section 1</span>
+            </div>
+
+            <div class="sec1-grid">
+                <article class="inner-box">
+                    <div class="box-head">
+                        <span>標籤索引 (點擊切換右側說明)</span>
+                        <span class="sub-code">Left Section</span>
+                    </div>
+                    <div class="tag-pills">
+                        <button type="button" class="pill-btn active" onclick="showBio('life', this)">#生活</button>
+                        <button type="button" class="pill-btn" onclick="showBio('personality', this)">#個性</button>
+                        <button type="button" class="pill-btn" onclick="showBio('interest', this)">#興趣</button>
+                        <button type="button" class="pill-btn" onclick="showBio('trait', this)">#個人特質</button>
+                        <button type="button" class="pill-btn" onclick="showBio('strength', this)">#專長</button>
+                    </div>
+                    <div id="bio-display" class="bio-box">
+                        <p><strong>🎂 生活日常：</strong>就讀中原大學資訊管理學系，平時在課業、球場訓練與木吉他指彈之間保持規律節奏。</p>
+                    </div>
+                </article>
+
+                <article class="inner-box">
+                    <div class="box-head">
+                        <span>Right Section — Photo Screen</span>
+                        <span class="sub-code">生活與活動花絮</span>
+                    </div>
+                    <div class="photo-screen">
+                        <img id="carousel-img" src="image/avatar.jpg" alt="個人生活照片">
+                        <div class="photo-overlay">
+                            <p class="overlay-title">個人生活照片與活動花絮輪播</p>
+                            <p class="overlay-sub">Photo Gallery Carousel View</p>
+                        </div>
+                        <button type="button" class="arrow-btn left" onclick="moveSlide(-1)">&#10094;</button>
+                        <button type="button" class="arrow-btn right" onclick="moveSlide(1)">&#10095;</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="sec-two" class="wire-card">
+            <div class="sec-top">
+                <h2>📊 專業技能與能力分析</h2>
+                <span class="sec-code">Section 2</span>
+            </div>
+
+            <div class="sec2-grid">
+                <article class="inner-box">
+                    <div class="box-head">
+                        <span>● Programming (程式開發技能)</span>
+                        <span class="sub-code">進度條呈現</span>
+                    </div>
+
+                    <div class="bar-group">
+                        <div class="bar-label"><span>#Python</span><span>80%</span></div>
+                        <div class="bar-track"><div class="bar-fill" style="width: 80%;"></div></div>
+                    </div>
+
+                    <div class="bar-group">
+                        <div class="bar-label"><span>#Java</span><span>65%</span></div>
+                        <div class="bar-track"><div class="bar-fill" style="width: 65%;"></div></div>
+                    </div>
+
+                    <div class="bar-group">
+                        <div class="bar-label"><span>#HTML / CSS / JavaScript</span><span>85%</span></div>
+                        <div class="bar-track"><div class="bar-fill" style="width: 85%;"></div></div>
+                    </div>
+                </article>
+
+                <article class="inner-box">
+                    <div class="box-head">
+                        <span>● Other Skills &amp; Soft Skills (其他與軟實力)</span>
+                        <span class="sub-code">圓環圖/標籤呈現</span>
+                    </div>
+
+                    <div class="soft-flex">
+                        <div class="ring-box">
+                            <div class="css-ring" style="--val: 75%;">
+                                <span>75%</span>
+                            </div>
+                            <p>UI/UX 設計</p>
+                        </div>
+                        <div class="soft-pill-grid">
+                            <span class="soft-chip">英文溝通</span>
+                            <span class="soft-chip">簡報製作</span>
+                            <span class="soft-chip">團隊溝通</span>
+                            <span class="soft-chip">問題拆解</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="sec-three" class="wire-card">
+            <div class="sec-top">
+                <h2>🎓 大學歷程與專案足跡</h2>
+                <span class="sec-code">Section 3</span>
+            </div>
+
+            <div class="acc-list">
+                <details class="acc-item" open>
+                    <summary class="acc-summary">
+                        <span class="stage-tag">課程專案</span>
+                        <span class="acc-title">多媒體程式設計 — 個人履歷網站與前端互動實作</span>
+                    </summary>
+                    <div class="acc-body">
+                        <p>
+                            在多媒體程式設計課程中，擔任網頁架構規劃與前端切版開發角色。從 Wireframe 設計出發，使用 HTML5 語義化標籤與純 CSS3 建立卡片式響應式版面，並整合 JavaScript 實作標籤切換、照片輪播與表單互動。透過這次實作，我學會了如何兼顧版面美感、程式碼縮排與 GitHub Pages 靜態網站部署流程。
+                        </p>
+                        <div class="proof-row">
+                            <span>佐證資料：</span>
+                            <a href="#header-sec">本網站即時展示</a>
+                            <a href="https://github.com" target="_blank">GitHub 儲存庫</a>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary class="acc-summary">
+                        <span class="stage-tag">校隊競技</span>
+                        <span class="acc-title">中原大學大專籃球聯賽公開三級校隊成員</span>
+                    </summary>
+                    <div class="acc-body">
+                        <p>
+                            加入中原大學男子籃球校隊，擔任前鋒與中鋒位置，負責禁區卡位籃板、防守協防與快攻跟進。每週固定參與高強度夜間團隊訓練與重量訓練計畫，在緊湊的資管系課業與練球之間培養高度自律與時間管理能力，也深刻體會到團隊默契與臨場溝通的重要性。
+                        </p>
+                        <div class="proof-row">
+                            <span>佐證資料：</span>
+                            <a href="#sec-one">校隊訓練與生活紀錄</a>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="acc-item">
+                    <summary class="acc-summary">
+                        <span class="stage-tag">文學創作</span>
+                        <span class="acc-title">2026 中原大學普仁文學獎短篇小說獲獎經歷</span>
+                    </summary>
+                    <div class="acc-body">
+                        <p>
+                            以中壢在地街巷日常與觀察視角為靈感，獨立完成短篇小說《第七位觀察者》與《回聲修補匠》的故事架構、角色塑造與文字修潤，並投稿參與校內普仁文學獎徵文比賽，最終榮獲短篇小說組第三名肯定。這段創作歷程大幅提升了我的敘事邏輯、細節觀察力與文字表達能力。
+                        </p>
+                        <div class="proof-row">
+                            <span>佐證資料：</span>
+                            <a href="#sec-four">普仁文學獎得獎收錄證明</a>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section id="sec-four" class="wire-card">
+            <div class="sec-top">
+                <h2>✉️ 聯絡資訊與互動意見回饋與留言板</h2>
+                <span class="sec-code">Section 4</span>
+            </div>
+
+            <div class="social-links">
+                <a href="mailto:s11444108@o365st.cycu.edu.tw?subject=個人履歷網站聯絡" class="social-pill primary">📧 Email 直接發信</a>
+                <a href="https://www.instagram.com/" target="_blank" class="social-pill">Instagram</a>
+                <a href="https://www.facebook.com/" target="_blank" class="social-pill">Facebook</a>
+                <a href="https://www.linkedin.com/" target="_blank" class="social-pill">LinkedIn</a>
+                <a href="https://github.com/" target="_blank" class="social-pill">GitHub</a>
+            </div>
+
+            <form class="feedback-form" onsubmit="submitFeedback(event)">
+                <div class="form-grid-2">
+                    <div class="field-group">
+                        <label for="f-name">您的姓名 / Name</label>
+                        <input type="text" id="f-name" placeholder="請輸入姓名..." required>
+                    </div>
+                    <div class="field-group">
+                        <label for="f-email">電子郵件 / Email</label>
+                        <input type="email" id="f-email" placeholder="example@gmail.com" required>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="f-subject">聯絡主題 / Subject</label>
+                    <select id="f-subject">
+                        <option value="design">網頁設計交流</option>
+                        <option value="project">專案合作邀約</option>
+                        <option value="other">其他建議回饋</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label for="f-msg">留言訊息 / Message</label>
+                    <textarea id="f-msg" rows="3" placeholder="歡迎在此留下您的意見或訊息..." required></textarea>
+                </div>
+                <button type="submit" class="send-btn">✈ 送出回饋訊息 (Submit Form)</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="footer-bar">
+        <p>© 2026 劉秉澄 Bing-Cheng Liu | 中原大學資訊管理學系 多媒體程式設計期中專案</p>
+    </footer>
+
+    <script>
+        /* [特效] 標籤切換簡介內容 — 參考 W3Schools Tabs 語法修改 */
+        const bioMap = {
+            life: "<p><strong>🎂 生活日常：</strong>就讀中原大學資訊管理學系，平時在課業、球場訓練與木吉他指彈之間保持規律節奏。</p>",
+            personality: "<p><strong>🧭 個性特質：</strong>沉穩冷靜、注重細節與承諾，遇到複雜問題習慣先拆解步驟再逐一完成。</p>",
+            interest: "<p><strong>🎸 興趣嗜好：</strong>競技籃球、木吉他指彈編曲、重量訓練、電影分析與短篇小說創作。</p>",
+            trait: "<p><strong>⚡ 個人特質：</strong>具備良好的抗壓性與團隊協作意識，能在高節奏環境中保持專注。</p>",
+            strength: "<p><strong>💻 專長方向：</strong>前端網頁切版、Python 資料處理、系統架構思考與文字企劃。</p>"
+        };
+
+        function showBio(key, btn) {
+            document.querySelectorAll(".pill-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            document.getElementById("bio-display").innerHTML = bioMap[key];
+        }
+
+        /* [特效] 照片輪播切換 — 參考 W3Schools Slideshow 語法修改 */
+        const slideList = ["image/avatar.jpg", "image/life1.jpg", "image/life2.jpg"];
+        let slideIndex = 0;
+
+        function moveSlide(step) {
+            slideIndex = (slideIndex + step + slideList.length) % slideList.length;
+            const img = document.getElementById("carousel-img");
+            img.onerror = function() { this.src = "image/avatar.jpg"; };
+            img.src = slideList[slideIndex];
+        }
+
+        function submitFeedback(e) {
+            e.preventDefault();
+            const n = document.getElementById("f-name").value;
+            alert("感謝 " + n + " 的留言！已收到您的訊息。");
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
